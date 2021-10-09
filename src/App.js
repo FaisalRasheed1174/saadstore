@@ -8,6 +8,7 @@ import {BrowserRouter as Router ,Route} from 'react-router-dom'
 import { Container } from 'react-bootstrap';
 import ProductScreen from './components/ProductScreen';
 import { CartScreen } from './components/CartScreen';
+import ShipppingScreen from './components/ShipppingScreen'
 
 
 
@@ -20,10 +21,10 @@ function App() {
         <Route path='/' component={HomeSrceen} exact />
         <Route path='/product/:id' component={ProductScreen}  />
         <Route path='/cart/:id?' component={CartScreen}  />
-       
+             <Footer/>
+
         </Container>
   </main>     
-      <Footer/>
     </Router>
   );
 }

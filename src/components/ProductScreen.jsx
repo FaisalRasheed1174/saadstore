@@ -26,6 +26,8 @@ const ProductScreen = ({history,match}) =>  {
     dispatch(listProductDetails(match.params.id))
 
    },[match])
+
+   console.log(products)
    
 
 const addToCartHandler=()=>{
@@ -41,28 +43,28 @@ const addToCartHandler=()=>{
 
 { loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message>  : 
      
-     products &&
+     products?.map(product=>(
           ( 
             <Row>
                 <Col md={6}>
-                    <Image src={products.image} alt={products.name} fluid></Image>
-                </Col>
+                    <Image src={product.image} alt={product.name} fluid></Image>
+                </Col> 
                 <Col md={3}>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
-                            <h3>{ products.name}</h3>
+                            <h3>{ product.name}</h3>
                         </ListGroup.Item>
                         <ListGroup.Item>
 
-                            <Ratings value={products.rating} text={`${products.numReviews} reviews`}>
+                            <Ratings value={product.rating} text={`${product.numReviews} reviews`}>
 
                             </Ratings>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            Price : {products.price}
+                            Price : {product.price}
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            Description : {products.description}
+                            Description : {product.description}
                         </ListGroup.Item>
 </ListGroup>
                 </Col>
@@ -75,7 +77,7 @@ const addToCartHandler=()=>{
                                     Price :
                                 </Col>
                                 <Col>
-                                    <strong>${ products.price}</strong>
+                                    <strong>${ product.price}</strong>
                                 </Col>
                             </Row>
                             
@@ -86,11 +88,11 @@ const addToCartHandler=()=>{
                                     Status :
                                 </Col>
                                 <Col>
-{products.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
+{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
                                 </Col>
                             </Row>
                             
-{products.countInStock > 0 && (
+{product.countInStock > 0 && (
     <ListGroupItem>
         <Row>
             <Col>
@@ -101,7 +103,7 @@ const addToCartHandler=()=>{
                 Setqty(e.target.value)}>
     
 
-   { [...Array(products.countInStock).keys()].map(x=>(
+   { [...Array(product.countInStock).keys()].map(x=>(
        <option key={x+1} value={x+1}>{x+1}</option>
    ))}
 
@@ -117,13 +119,14 @@ const addToCartHandler=()=>{
                         <ListGroupItem>
                             <Button
                             onClick={addToCartHandler}
-                             className='btn-block' type='button' disabled={products.countInStock === 0 } >
+                             className='btn-block' type='button' disabled={product.countInStock === 0 } >
                                 Add To Card
                             </Button>
                         </ListGroupItem>
                     </Card>
                 </Col>
             </Row>
+          ))
             )}
             </>
     )
